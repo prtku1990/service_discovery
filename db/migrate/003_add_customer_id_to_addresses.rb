@@ -11,4 +11,3 @@ class AddCustomerIdToAddresses < ActiveRecord::Migration
     end
   end
 end
-  

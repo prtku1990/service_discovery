@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 3) do
+ActiveRecord::Schema.define(version: 10) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -33,6 +33,47 @@ ActiveRecord::Schema.define(version: 3) do
     t.string   "gender",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date     "slot_start_time"
+    t.string   "status",            limit: 255
+    t.date     "actual_start_time"
+    t.date     "actual_end_time"
+    t.integer  "total_price",       limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "order_id",          limit: 4
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string   "name",           limit: 255
+    t.text     "description",    limit: 65535
+    t.integer  "price_per_hour", limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "veteran_slots", force: :cascade do |t|
+    t.date     "start_time"
+    t.date     "end_time"
+    t.integer  "is_reserved", limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "veteran_id",  limit: 4
+  end
+
+  create_table "veterans", force: :cascade do |t|
+    t.string   "name",                  limit: 255
+    t.string   "phone_number",          limit: 255
+    t.string   "pan_number",            limit: 255
+    t.text     "address",               limit: 65535
+    t.string   "languages_known",       limit: 255
+    t.string   "agency",                limit: 255
+    t.integer  "expected_service_time", limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "service_id",            limit: 4
   end
 
 end
