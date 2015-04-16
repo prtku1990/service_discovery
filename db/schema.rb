@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 10) do
+ActiveRecord::Schema.define(:version => 11) do
 
   create_table "addresses", :force => true do |t|
     t.string   "name"
@@ -24,15 +24,7 @@ ActiveRecord::Schema.define(:version => 10) do
     t.integer  "is_primary",   :limit => 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "customer_id"
-  end
-
-  create_table "customers", :force => true do |t|
-    t.string   "email_id"
-    t.string   "password"
-    t.string   "gender"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "orders", :force => true do |t|
@@ -50,6 +42,14 @@ ActiveRecord::Schema.define(:version => 10) do
     t.string   "name"
     t.text     "description"
     t.decimal  "price_per_hour", :precision => 12, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email_id"
+    t.string   "password"
+    t.string   "gender"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
