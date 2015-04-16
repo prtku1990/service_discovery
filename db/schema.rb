@@ -9,71 +9,72 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended that you check this file into your version control system.
+# It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 10) do
+ActiveRecord::Schema.define(:version => 10) do
 
-  create_table "addresses", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.text     "line1",        limit: 65535
-    t.text     "line2",        limit: 65535
-    t.string   "city",         limit: 255
-    t.string   "state",        limit: 255
-    t.string   "pincode",      limit: 255
-    t.string   "phone_number", limit: 255
-    t.integer  "is_primary",   limit: 1
+  create_table "addresses", :force => true do |t|
+    t.string   "name"
+    t.text     "line1"
+    t.text     "line2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "pincode"
+    t.string   "phone_number"
+    t.integer  "is_primary",   :limit => 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "customer_id",  limit: 4
+    t.integer  "customer_id"
   end
 
-  create_table "customers", force: :cascade do |t|
-    t.string   "email_id",   limit: 255
-    t.string   "password",   limit: 255
-    t.string   "gender",     limit: 255
+  create_table "customers", :force => true do |t|
+    t.string   "email_id"
+    t.string   "password"
+    t.string   "gender"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "orders", force: :cascade do |t|
+  create_table "orders", :force => true do |t|
     t.date     "slot_start_time"
-    t.string   "status",            limit: 255
+    t.string   "status"
     t.date     "actual_start_time"
     t.date     "actual_end_time"
-    t.integer  "total_price",       limit: 4
+    t.integer  "total_price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_id",          limit: 4
+    t.integer  "order_id"
   end
 
-  create_table "services", force: :cascade do |t|
-    t.string   "name",           limit: 255
-    t.text     "description",    limit: 65535
-    t.integer  "price_per_hour", limit: 4
+  create_table "services", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.decimal  "price_per_hour", :precision => 12, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "veteran_slots", force: :cascade do |t|
-    t.date     "start_time"
-    t.date     "end_time"
-    t.integer  "is_reserved", limit: 4
+  create_table "veteran_slots", :force => true do |t|
+    t.integer  "veteran_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean  "is_reserved"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "veteran_id",  limit: 4
   end
 
-  create_table "veterans", force: :cascade do |t|
-    t.string   "name",                  limit: 255
-    t.string   "phone_number",          limit: 255
-    t.string   "pan_number",            limit: 255
-    t.text     "address",               limit: 65535
-    t.string   "languages_known",       limit: 255
-    t.string   "agency",                limit: 255
-    t.integer  "expected_service_time", limit: 4
+  create_table "veterans", :force => true do |t|
+    t.integer  "service_id"
+    t.string   "name"
+    t.integer  "contact_number"
+    t.integer  "pan"
+    t.text     "address"
+    t.text     "languages_known"
+    t.string   "agency"
+    t.integer  "expected_service_minutes"
+    t.integer  "expected_travel_minutes_before"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "service_id",            limit: 4
   end
 
 end

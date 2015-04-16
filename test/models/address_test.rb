@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../test_config.rb')
 
-class AddressTest < Test::Unit::TestCase
+class AddressTest < ActiveSupport::TestCase
   context "Address Model" do
     should 'construct new instance' do
       @address = Address.new

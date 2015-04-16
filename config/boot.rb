@@ -5,6 +5,13 @@ PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
 # Load our dependencies
 require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'
+require 'action_dispatch'
+require 'active_support'
+require 'active_model'
+
+require 'json'
+require 'pp'
+
 Bundler.require(:default, RACK_ENV)
 
 ##
@@ -35,7 +42,9 @@ Bundler.require(:default, RACK_ENV)
 # Add your before (RE)load hooks here
 #
 Padrino.before_load do
+  Padrino.require_dependencies("#{Padrino.root}/app/constants/*.rb")
 end
+
 
 ##
 # Add your after (RE)load hooks here

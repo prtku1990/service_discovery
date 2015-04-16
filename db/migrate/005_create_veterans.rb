@@ -1,18 +1,16 @@
 class CreateVeterans < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :veterans do |t|
+      t.integer :service_id
       t.string :name
-      t.string :phone_number
-      t.string :pan_number
+      t.integer :contact_number
+      t.integer :pan
       t.text :address
-      t.string :languages_known
+      t.text :languages_known
       t.string :agency
-      t.integer :expected_service_time
+      t.integer :expected_service_minutes #varies according to speed of veterans
+      t.integer :expected_travel_minutes_before #varies according to speed of veterans
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :veterans
   end
 end

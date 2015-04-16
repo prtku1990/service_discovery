@@ -1,14 +1,10 @@
 class CreateServices < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :services do |t|
       t.string :name
       t.text :description
-      t.integer :price_per_hour
+      t.decimal :price_per_hour, precision: 12, scale: 2
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :services
   end
 end

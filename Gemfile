@@ -15,16 +15,27 @@ gem 'rake'
 
 # Component requirements
 gem 'slim'
-gem 'activerecord', '>= 3.1', :require => 'active_record'
+gem 'activerecord', '3.1.3', :require => 'active_record'
+gem 'actionpack', '3.1.3'
+gem 'activesupport'
 gem 'mysql2'
 
 # Test requirements
-gem 'mocha', :group => 'test', :require => false
-gem 'shoulda', :group => 'test'
-gem 'rack-test', :require => 'rack/test', :group => 'test'
+group :test do
+  gem 'simplecov'
+  gem 'test-unit', '2.5.5'
+  gem "spork"
+  gem "spork-testunit"
+  gem 'factory_girl'
+  gem 'mocha', '0.12.0', :require => false
+  gem 'shoulda'
+  gem "shoulda-context"
+  gem "shoulda-matchers"
+  gem 'rack-test', :require => 'rack/test'
+end
 
 # Padrino Stable Gem
-gem 'padrino', '0.12.5'
+gem 'padrino', '0.10.5'
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'

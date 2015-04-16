@@ -1,14 +1,11 @@
 class CreateVeteranSlots < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :veteran_slots do |t|
-      t.date :start_time
-      t.date :end_time
-      t.integer :is_reserved
+      t.integer :veteran_id
+      t.datetime :start_time
+      t.datetime :end_time
+      t.boolean :is_reserved
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :veteran_slots
   end
 end
