@@ -30,11 +30,11 @@ ActiveRecord::Base.configurations[:production] = {
   :adapter   => 'mysql2',
   :encoding  => 'utf8',
   :reconnect => true,
-  :database  => 'service_discovery_production',
+  :database  => 'servicediscovery',
   :pool      => 5,
-  :username  => 'root',
-  :password  => '',
-  :host      => 'localhost',
+  :username  => 'admintKekYdG',
+  :password  => 'PJ8tHXcIiki7',
+  :host      => "127.13.11.2",
   :socket    => '/tmp/mysql.sock'
 
 }
