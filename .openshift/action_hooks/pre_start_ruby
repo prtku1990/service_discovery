@@ -1,1 +1,0 @@
-bundle exec padrino start -p $OPENSHIFT_RUBY_PORT -h $OPENSHIFT_RUBY_IP
