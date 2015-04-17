@@ -34,7 +34,6 @@ group :test do
   gem 'rack-test', :require => 'rack/test'
 end
 
-ruby '2.1.5'
 # Padrino Stable Gem
 gem 'padrino', '0.10.5'
 
