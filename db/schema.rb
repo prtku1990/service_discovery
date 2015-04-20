@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 12) do
+ActiveRecord::Schema.define(:version => 13) do
 
   create_table "addresses", :force => true do |t|
     t.string   "name"
@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   create_table "orders", :force => true do |t|
-    t.date     "slot_start_time"
+    t.datetime "slot_start_time",   :null => false
     t.string   "status",            :null => false
-    t.date     "actual_start_time"
-    t.date     "actual_end_time"
+    t.datetime "actual_start_time"
+    t.datetime "actual_end_time"
     t.integer  "total_price"
     t.datetime "created_at"
     t.datetime "updated_at"

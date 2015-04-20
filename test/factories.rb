@@ -20,4 +20,19 @@ FactoryGirl.define do
     is_reserved true
   end
 
+  factory :user do
+    email_id 'naam@mail.com'
+    password 'hidden'
+  end
+
+  factory :address do
+    name  'naam'
+    line1 'first line'
+    city  'sim'
+    state 'rajya'
+    pincode 102420
+    user FactoryGirl.create(:user)
+    phone_number 123456789
+    is_primary true
+  end
 end
