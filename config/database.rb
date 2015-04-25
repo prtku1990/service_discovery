@@ -27,14 +27,14 @@ ActiveRecord::Base.configurations[:development] = {
 }
 
 ActiveRecord::Base.configurations[:production] = {
-  :adapter   => 'sqlite3',
+  :adapter   => 'mysql2',
   :encoding  => 'utf8',
   :reconnect => true,
-  :database  => 'servicediscovery',
+  :database  => 'service_dis_9160',
   :pool      => 5,
-  :username  => 'admintKekYdG',
-  :password  => 'PJ8tHXcIiki7',
-  :host      => "127.13.11.2",
+  :username  => 'service_dis_9160',
+  :password  => 'ArAc9mnLivZgxg13_m_T',
+  :host      => "service-dis-9160.mysql.dbs.appsdeck.eu:30423",
   :socket    => '/tmp/mysql.sock'
 
 }
