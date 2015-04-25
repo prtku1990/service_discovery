@@ -34,7 +34,7 @@ ActiveRecord::Base.configurations[:production] = {
   :pool      => 5,
   :username  => 'service_dis_9160',
   :password  => 'ArAc9mnLivZgxg13_m_T',
-  :host      => "service-dis-9160.mysql.dbs.appsdeck.eu:30423",
+  :host      => "service-dis-9160.mysql.dbs.appsdeck.eu",
   :socket    => '/tmp/mysql.sock'
 
 }
