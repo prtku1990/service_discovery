@@ -27,7 +27,7 @@ ActiveRecord::Base.configurations[:development] = {
 }
 
 ActiveRecord::Base.configurations[:production] = {
-  :adapter   => 'mysql2',
+  :adapter   => 'sqlite3',
   :encoding  => 'utf8',
   :reconnect => true,
   :database  => 'servicediscovery',
