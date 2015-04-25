@@ -35,4 +35,11 @@ FactoryGirl.define do
     phone_number 123456789
     is_primary true
   end
+
+  factory :order do
+    slot_start_time '2015-5-5 10:00:00'
+    status 'created'
+    address FactoryGirl.create(:address)
+    service FactoryGirl.create(:service)
+  end
 end

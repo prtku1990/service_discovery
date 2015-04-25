@@ -56,4 +56,14 @@ class OrderControllerTest < ActiveSupport::TestCase
     assert_equal input[:service_id], order.service_id
     assert_equal input[:start_time], order.slot_start_time.to_s(:db)
   end
+
+  context 'get orders' do
+    should 'call find_orders and return json response' do
+      expected_orders = [{order_id: 1, start_time: Time.now, status: 'created', service_name: 'service1'},
+                         {order_id: 2, start_time: Time.now, status: 'completed', service_name: 'service2'}]
+      Order.expects(:find_orders).with('1').returns(expected_orders)
+      get '/orders?user_id=1'
+      assert_equal expected_orders.to_json, last_response.body
+    end
+  end
 end
