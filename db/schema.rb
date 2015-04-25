@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 13) do
     t.string   "email_id"
     t.string   "password"
     t.string   "gender"
+    t.string   "login_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
