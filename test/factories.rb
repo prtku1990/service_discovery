@@ -37,9 +37,11 @@ FactoryGirl.define do
   end
 
   factory :order do
-    slot_start_time '2015-5-5 10:00:00'
+    slot_start_time '2015-05-05 10:00:00'
     status 'created'
     address FactoryGirl.create(:address)
     service FactoryGirl.create(:service)
+    actual_start_time '2015-05-05 10:05:00'
+    total_price 120.00
   end
 end

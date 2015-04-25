@@ -9,7 +9,16 @@ class Order < ActiveRecord::Base
   end
 
   def fields_for_find_orders
-    {order_id: id, start_time: slot_start_time,
+    {order_id: id, slot_start_time: slot_start_time,
      status: status, service_name: service.name}
+  end
+
+  def fields_for_get_order
+    as_json.symbolize_keys.tap do |fields|
+      fields.except!(:updated_at, :address_id, :service_id)
+      fields[:order_id] = fields.delete(:id)
+      fields[:service_name] = service.name
+      fields[:address] = address.as_json(except: [:updated_at, :created_at])
+    end
   end
 end

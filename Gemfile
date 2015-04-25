@@ -28,9 +28,9 @@ group :test do
   gem "spork-testunit"
   gem 'factory_girl'
   gem 'mocha', '0.12.0', :require => false
-  gem 'shoulda'
-  gem "shoulda-context"
-  gem "shoulda-matchers"
+  gem 'shoulda', '3.0.1'
+  gem "shoulda-context", '1.0.0'
+  gem "shoulda-matchers", '1.0.0'
   gem 'rack-test', :require => 'rack/test'
 end
 

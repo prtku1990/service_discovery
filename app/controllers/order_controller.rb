@@ -11,4 +11,9 @@ ServiceDiscovery::App.controllers :orders do
   get '/' do
     Order.find_orders(params[:user_id]).to_json
   end
+
+  get '/:id' do
+    order = Order.find(params[:id])
+    order.fields_for_get_order.to_json
+  end
 end

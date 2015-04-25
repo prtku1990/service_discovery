@@ -66,4 +66,14 @@ class OrderControllerTest < ActiveSupport::TestCase
       assert_equal expected_orders.to_json, last_response.body
     end
   end
+
+  context 'get order by id' do
+    should 'call fields_for_get_order and return json' do
+      order = FactoryGirl.create(:order)
+      expected_payload = {order_id: 123, other_fields: 'other_fields'}
+      Order.any_instance.expects(:fields_for_get_order).returns(expected_payload)
+      get "/orders/#{order.id}"
+      assert_equal expected_payload.to_json, last_response.body
+    end
+  end
 end
