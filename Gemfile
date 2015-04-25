@@ -39,7 +39,7 @@ group :development do
 end
 
 group :production do
-  gem 'sqlite3'
+  gem 'sqlite3', '1.3.4'
 end
 
 # Padrino Stable Gem
