@@ -37,6 +37,10 @@ end
 # Padrino Stable Gem
 gem 'padrino', '0.10.5'
 
+gem 'state_machine', '1.1.2'
+gem 'state_machine-audit_trail'
+
+
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'
 

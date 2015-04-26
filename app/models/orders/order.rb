@@ -3,6 +3,12 @@ class Order < ActiveRecord::Base
   belongs_to :service
   validates_presence_of :service, :address
 
+  state_machine :status, :initial => :created do
+    event :complete do
+      transition :created => :completed
+    end
+  end
+
   def self.find_orders(user_id)
     orders = Order.joins(:address).where('addresses.user_id' => user_id)
     orders.collect(&:fields_for_find_orders)
