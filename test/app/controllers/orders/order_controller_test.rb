@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../test_config.rb')
+require File.expand_path(File.dirname(__FILE__) + '/../../../test_config.rb')
 
 class OrderControllerTest < ActiveSupport::TestCase
   context 'Create' do
@@ -47,6 +47,7 @@ class OrderControllerTest < ActiveSupport::TestCase
       assert_equal 1, Order.count
       order = Order.first
       assert_order_fields(payload, order)
+      assert_order_log_created(payload, order)
       assert_equal({order_id: order.id}.to_json, last_response.body)
     end
   end
@@ -55,6 +56,12 @@ class OrderControllerTest < ActiveSupport::TestCase
     assert_equal input[:address_id], order.address_id
     assert_equal input[:service_id], order.service_id
     assert_equal input[:start_time], order.slot_start_time.to_s(:db)
+  end
+
+  def assert_order_log_created(input, order)
+    assert_equal 1, order.order_logs.count
+    order_log = order.order_logs.first
+    assert_equal 'created', order_log.to
   end
 
   context 'get orders' do

@@ -31,7 +31,7 @@ FactoryGirl.define do
     city  'sim'
     state 'rajya'
     pincode 102420
-    user FactoryGirl.create(:user)
+    user {FactoryGirl.create(:user)}
     phone_number 123456789
     is_primary true
   end
@@ -39,8 +39,8 @@ FactoryGirl.define do
   factory :order do
     slot_start_time '2015-05-05 10:00:00'
     status 'created'
-    address FactoryGirl.create(:address)
-    service FactoryGirl.create(:service)
+    address {FactoryGirl.create(:address)}
+    service {FactoryGirl.create(:service)}
     actual_start_time '2015-05-05 10:05:00'
     total_price 120.00
   end

@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../test_config.rb')
+require File.expand_path(File.dirname(__FILE__) + '/../../../test_config.rb')
 
 class ServiceControllerTest < ActiveSupport::TestCase
   context 'Get slots' do

@@ -1,12 +1,15 @@
 class Order < ActiveRecord::Base
   belongs_to :address
   belongs_to :service
+  has_many :order_logs
   validates_presence_of :service, :address
 
   state_machine :status, :initial => :created do
     event :complete do
       transition :created => :completed
     end
+
+    store_audit_trail to: OrderLog
   end
 
   def self.find_orders(user_id)
