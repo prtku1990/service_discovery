@@ -28,14 +28,18 @@ group :test do
   gem "spork-testunit"
   gem 'factory_girl'
   gem 'mocha', '0.12.0', :require => false
-  gem 'shoulda'
-  gem "shoulda-context"
-  gem "shoulda-matchers"
+  gem 'shoulda', '3.0.1'
+  gem "shoulda-context", '1.0.0'
+  gem "shoulda-matchers", '1.0.0'
   gem 'rack-test', :require => 'rack/test'
 end
 
 # Padrino Stable Gem
 gem 'padrino', '0.10.5'
+
+gem 'state_machine', '1.1.2'
+gem 'state_machine-audit_trail'
+
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'
