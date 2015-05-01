@@ -4,13 +4,43 @@ class Order < ActiveRecord::Base
   has_many :order_logs
   validates_presence_of :service, :address
 
-  state_machine :status, :initial => :created do
+  state_machine :status, :initial => :drafted do
+    event :make do
+      transition :drafted => :created
+    end
+
+    event :confirm do
+      transition :created => :confirmed
+    end
+
+    event :start do
+      transition :confirmed => :started
+    end
+
     event :complete do
-      transition :created => :completed
+      transition :started => :completed
+    end
+
+    event :close do
+      transition [:completed] => :cancelled
+    end
+
+    event :cancel do
+      transition [:drafted, :created, :confirmed] => :cancelled
+    end
+
+    state :started do
+      validates_presence_of :actual_start_time
+    end
+
+    state :completed do
+      validates_presence_of :actual_end_time
     end
 
     store_audit_trail to: OrderLog
   end
+
+  after_create :make
 
   def self.find_orders(user_id)
     orders = Order.joins(:address).where('addresses.user_id' => user_id)

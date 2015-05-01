@@ -59,9 +59,8 @@ class OrderControllerTest < ActiveSupport::TestCase
   end
 
   def assert_order_log_created(input, order)
-    assert_equal 1, order.order_logs.count
-    order_log = order.order_logs.first
-    assert_equal 'created', order_log.to
+    assert_equal 2, order.order_logs.count
+    assert_equal ['drafted', 'created'], order.order_logs.collect(&:to)
   end
 
   context 'get orders' do
@@ -83,4 +82,90 @@ class OrderControllerTest < ActiveSupport::TestCase
       assert_equal expected_payload.to_json, last_response.body
     end
   end
-end
+
+  context 'confirm order' do
+    should 'confirm order if confirmation is possible' do
+      order = FactoryGirl.create(:order)
+      put "/orders/#{order.id}/confirm"
+      assert_true order.reload.confirmed?
+    end
+
+    should 'raise exception if confirmation is not possible' do
+      order = FactoryGirl.create(:order, status: 'started', actual_start_time: Time.now)
+      assert_raises StateMachine::InvalidTransition do
+        put "/orders/#{order.id}/confirm"
+      end
+    end
+
+    should 'raise exception if order id is invalid' do
+      assert_raises ActiveRecord::RecordNotFound do
+        put "/orders/2/confirm"
+      end
+    end
+  end
+
+  context 'start order' do
+    should 'update actual start time and start order' do
+      order = FactoryGirl.create(:order, status: 'confirmed')
+      put "/orders/#{order.id}/start", {start_time: "2015-04-04 10:15:00"}.to_json
+      assert_true order.reload.started?
+      assert_equal "2015-04-04 10:15:00", order.actual_start_time.to_s(:db)
+    end
+
+    should 'raise exception if start is not possible' do
+      order = FactoryGirl.create(:order)
+      assert_raises StateMachine::InvalidTransition do
+        put "/orders/#{order.id}/start", {start_time: "2015-04-04 10:15:00"}.to_json
+      end
+    end
+
+    should 'raise exception if order id is invalid' do
+      assert_raises ActiveRecord::RecordNotFound do
+        put "/orders/2/start", {start_time: "2015-04-04 10:15:00"}.to_json
+      end
+    end
+  end
+
+  context 'complete order' do
+    should 'update actual end time and complete order' do
+      order = FactoryGirl.create(:order, status: 'started', actual_start_time: Time.now)
+      put "/orders/#{order.id}/complete", {end_time: "2015-04-04 10:15:00"}.to_json
+      assert_true order.reload.completed?
+      assert_equal "2015-04-04 10:15:00", order.actual_end_time.to_s(:db)
+    end
+
+    should 'raise exception if complete is not possible' do
+      order = FactoryGirl.create(:order)
+      assert_raises StateMachine::InvalidTransition do
+        put "/orders/#{order.id}/complete", {end_time: "2015-04-04 10:15:00"}.to_json
+      end
+    end
+
+    should 'raise exception if order id is invalid' do
+      assert_raises ActiveRecord::RecordNotFound do
+        put "/orders/2/complete", {end_time: "2015-04-04 10:15:00"}.to_json
+      end
+    end
+  end
+
+  context 'cancel order' do
+    should 'cancel order' do
+      order = FactoryGirl.create(:order)
+      put "/orders/#{order.id}/cancel"
+      assert_true order.reload.cancelled?
+    end
+
+    should 'raise exception if cancel is not possible' do
+      order = FactoryGirl.create(:order, status: 'completed', actual_end_time: Time.now)
+      assert_raises StateMachine::InvalidTransition do
+        put "/orders/#{order.id}/cancel"
+      end
+    end
+
+    should 'raise exception if order id is invalid' do
+      assert_raises ActiveRecord::RecordNotFound do
+        put "/orders/2/cancel"
+      end
+    end
+  end
+ end

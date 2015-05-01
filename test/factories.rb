@@ -41,7 +41,6 @@ FactoryGirl.define do
     status 'created'
     address {FactoryGirl.create(:address)}
     service {FactoryGirl.create(:service)}
-    actual_start_time '2015-05-05 10:05:00'
     total_price 120.00
   end
 end

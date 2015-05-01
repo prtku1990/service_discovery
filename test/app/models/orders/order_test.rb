@@ -16,7 +16,7 @@ class OrderTest < ActiveSupport::TestCase
       @address2 = FactoryGirl.create(:address, user: @user2)
       @order1 = FactoryGirl.create(:order, address: @address1, slot_start_time: '2015-04-04 10:00:00',
                                    service: FactoryGirl.create(:service, name: 'service1'))
-      @order2 = FactoryGirl.create(:order, address: @address1, slot_start_time: '2015-04-05 10:00:00',
+      @order2 = FactoryGirl.create(:order, address: @address1, slot_start_time: '2015-04-05 10:00:00', actual_end_time: Time.now,
                                    service: FactoryGirl.create(:service, name: 'service2'), status: 'completed')
       @order3 = FactoryGirl.create(:order, address: @address2)
     end
@@ -48,6 +48,38 @@ class OrderTest < ActiveSupport::TestCase
     def assert_address_fields(address, actual_fields)
       expected_fields = address.attributes.except!('created_at', 'updated_at')
       assert_equal expected_fields, actual_fields
+    end
+  end
+
+  context "Transition to started" do
+    should "not be allowed if actual start time is not present" do
+      order = FactoryGirl.create(:order, status: 'confirmed')
+      assert_raises(StateMachine::InvalidTransition) do
+        order.start!
+      end
+    end
+
+    should "be allowed if actual start time is present" do
+      order = FactoryGirl.create(:order, status: 'confirmed', actual_start_time: Time.now)
+      assert_nothing_raised do
+        order.start!
+      end
+    end
+  end
+
+  context "Transition to completed" do
+    should "not be allowed if actual end time is not present" do
+      order = FactoryGirl.create(:order, status: 'started', actual_start_time: Time.now)
+      assert_raises(StateMachine::InvalidTransition) do
+        order.complete!
+      end
+    end
+
+    should "be allowed if actual start time is present" do
+      order = FactoryGirl.create(:order, status: 'started', actual_start_time: Time.now, actual_end_time: Time.now)
+      assert_nothing_raised do
+        order.complete!
+      end
     end
   end
 end
