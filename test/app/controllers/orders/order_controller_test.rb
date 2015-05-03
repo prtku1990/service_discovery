@@ -69,7 +69,7 @@ class OrderControllerTest < ActiveSupport::TestCase
                          {order_id: 2, start_time: Time.now, status: 'completed', service_name: 'service2'}]
       Order.expects(:find_orders).with('1').returns(expected_orders)
       get '/orders?user_id=1'
-      assert_equal expected_orders.to_json, last_response.body
+      assert_equal({orders: expected_orders}.to_json, last_response.body)
     end
   end
 
