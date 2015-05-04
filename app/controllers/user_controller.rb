@@ -1,13 +1,13 @@
-ServiceDiscovery::App.controllers :user_services do
+ServiceDiscovery::App.controllers :users do
   
   get :index, :map => '/foo/bar' do
     "hello"
   end
 
-  post :create_user, :map => '/user' do
-    params = get_create_user_params
-    print params
-  end
+  # post "/" do
+  #   params = get_create_user_params
+  #   print params
+  # end
   # get :sample, :map => '/sample/url', :provides => [:any, :js] do
   #   case content_type
   #     when :js then ...

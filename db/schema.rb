@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 14) do
     t.string   "city"
     t.string   "state"
     t.string   "pincode"
+    t.string   "land_mark"
     t.string   "phone_number"
-    t.integer  "is_primary",   :limit => 1
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"

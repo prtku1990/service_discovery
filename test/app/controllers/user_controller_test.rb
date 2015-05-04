@@ -1,6 +1,6 @@
 # require File.expand_path(File.dirname(__FILE__) + '/../../test_config.rb')
 #
-# class UserServicesControllerTest < ActiveSupport::TestCase
+# class UserControllerTest < ActiveSupport::TestCase
 #   context "UserServicesController" do
 #     setup do
 #       get '/'
