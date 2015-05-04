@@ -22,7 +22,7 @@ class Order < ActiveRecord::Base
     end
 
     event :close do
-      transition [:completed] => :cancelled
+      transition [:completed] => :closed
     end
 
     event :cancel do
