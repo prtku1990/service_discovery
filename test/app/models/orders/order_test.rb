@@ -82,4 +82,13 @@ class OrderTest < ActiveSupport::TestCase
       end
     end
   end
+
+  context "Set End Time and Price" do
+    should "set end time and call pricer" do
+      order = FactoryGirl.create(:order)
+      Pricer.any_instance.expects(:calculate_price)
+      order.set_end_time_and_price("2014-04-04 18:32:08")
+      assert_equal "2014-04-04 18:32:08", order.actual_end_time.to_s(:db)
+    end
+  end
 end

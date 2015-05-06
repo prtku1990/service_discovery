@@ -36,7 +36,7 @@ ServiceDiscovery::App.controllers :orders do
     @input = parse_request
     order = Order.find(params[:id])
     Order.transaction do
-      order.update_attributes!(actual_end_time: @input[:end_time])
+      order.set_end_time_and_price(@input[:end_time])
       order.complete!
     end
   end

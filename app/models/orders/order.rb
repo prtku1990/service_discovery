@@ -52,6 +52,11 @@ class Order < ActiveRecord::Base
      status: status, service_name: service.name}
   end
 
+  def set_end_time_and_price(end_time)
+    update_attributes!(actual_end_time: end_time)
+    Pricer.new(self).calculate_price
+  end
+
   def fields_for_get_order
     as_json.symbolize_keys.tap do |fields|
       fields.except!(:updated_at, :address_id, :service_id)

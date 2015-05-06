@@ -127,15 +127,15 @@ class OrderControllerTest < ActiveSupport::TestCase
   end
 
   context 'complete order' do
-    should 'update actual end time and complete order' do
-      order = FactoryGirl.create(:order, status: 'started', actual_start_time: Time.now)
+    should 'call set_end_time_and_price and complete order' do
+      order = FactoryGirl.create(:order, status: 'started', actual_start_time: Time.now, actual_end_time: Time.now)
+      Order.any_instance.expects(:set_end_time_and_price).with("2015-04-04 10:15:00")
       put "/orders/#{order.id}/complete", {end_time: "2015-04-04 10:15:00"}.to_json
       assert_true order.reload.completed?
-      assert_equal "2015-04-04 10:15:00", order.actual_end_time.to_s(:db)
     end
 
     should 'raise exception if complete is not possible' do
-      order = FactoryGirl.create(:order)
+      order = FactoryGirl.create(:order, actual_start_time: Time.now)
       assert_raises StateMachine::InvalidTransition do
         put "/orders/#{order.id}/complete", {end_time: "2015-04-04 10:15:00"}.to_json
       end
