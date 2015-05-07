@@ -6,4 +6,10 @@ class Service < ActiveRecord::Base
       slots.concat(veteran.get_slots(date)).uniq!
     end
   end
+
+  def as_json(options = {})
+    super(options).tap do |json|
+      json[:service_id] = id
+    end
+  end
 end

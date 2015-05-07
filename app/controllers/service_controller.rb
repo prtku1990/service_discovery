@@ -5,4 +5,8 @@ ServiceDiscovery::App.controllers :services do
     time_slots = slots.collect{|slot| slot.to_s(:time)}
     {slots: time_slots}.to_json
   end
+
+  get '/', :provides => :json do
+    Service.all.to_json(except: [:id, :created_at, :updated_at, :description])
+  end
 end
