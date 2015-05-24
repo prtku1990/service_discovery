@@ -9,4 +9,16 @@ ServiceDiscovery::App.controllers :services do
   get '/', :provides => :json do
     Service.all.to_json(except: [:id, :created_at, :updated_at, :description])
   end
+
+  # get '/services/:service_id/start_times' do
+  #   (0..6).collect do |day|
+  #     time = Time.now + day.days
+  #     {
+  #         date: time.strftime('%F'),
+  #         day: time.strftime('%a'),
+  #         min_start_time: "08:00:00",
+  #         max_start_time: "18:00:00"
+  #     }
+  #   end.to_json
+  # end
 end
