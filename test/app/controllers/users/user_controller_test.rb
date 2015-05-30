@@ -124,6 +124,60 @@ class UserControllerTest < ActiveSupport::TestCase
     #
     #   put "/users/#{user.id}/update_address", payload.to_json
     # end
+  end
 
+  context 'Delete Addresses' do
+    should 'Return error if address_ids does not present' do
+      payload = {}
+      assert_raise StandardError.new('Parameter address_ids is mandatory') do
+        post "/users/1/delete_addresses", payload.to_json
+      end
+    end
+
+    should 'delete addresses' do
+      payload = {address_ids: [1,2,3,5]}
+      expected_addresses = [{name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'},
+                            {name: 'tvs', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255160'}]
+      Address.expects(:where).returns(expected_addresses)
+      post "/users/1/delete_addresses", payload.to_json
+      result = {addresses: expected_addresses}.to_json
+      assert_equal result, last_response.body
+    end
+  end
+
+  context 'Create User' do
+    should 'Return error if email_id does not present' do
+      payload = {}
+      assert_raise StandardError.new('Parameter email_id is mandatory') do
+        post "/users/", payload.to_json
+      end
+    end
+
+    should 'Try to create new user with already existing email_id' do
+      payload = {email_id: "admin@opendoors.com"}
+      user = FactoryGirl.create(:user)
+      db_users = [user]
+      User.expects(:where).returns(db_users)
+      post "/users/", payload.to_json
+      result = {user_id: user.id, new_user: false}.to_json
+      assert_equal result, last_response.body
+      assert_equal last_response.status, 302
+    end
+
+    should 'Create new user' do
+      payload = {email_id: "admin@opendoors.com"}
+      db_users = []
+      User.expects(:where).returns(db_users)
+      post "/users/", payload.to_json
+      assert_equal last_response.status, 201
+    end
+
+    should 'Create new user with address' do
+      payload = {email_id: "admin@opendoors.com", address: {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'}}
+      db_users = []
+      User.expects(:where).returns(db_users)
+      post "/users/", payload.to_json
+      assert_equal last_response.status, 201
+    end
   end
 end
