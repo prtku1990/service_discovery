@@ -39,6 +39,7 @@ gem 'padrino', '0.10.5'
 
 gem 'state_machine', '1.1.2'
 gem 'state_machine-audit_trail'
+gem 'rest-client'
 
 
 # Or Padrino Edge
