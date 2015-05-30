@@ -27,6 +27,8 @@ GEM
     builder (3.0.4)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    domain_name (0.5.24)
+      unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -34,6 +36,8 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
     hike (1.2.3)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     http_router (0.10.2)
       rack (>= 1.0.0)
       url_mount (~> 0.2.1)
@@ -48,6 +52,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.11.0)
     mysql2 (0.3.18)
+    netrc (0.10.3)
     padrino (0.10.5)
       padrino-admin (= 0.10.5)
       padrino-cache (= 0.10.5)
@@ -87,6 +92,10 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     rake (10.4.2)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     shoulda (3.0.1)
       shoulda-context (~> 1.0.0)
       shoulda-matchers (~> 1.0.0)
@@ -122,6 +131,9 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.43)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.1)
     url_mount (0.2.1)
       rack
 
@@ -138,6 +150,7 @@ DEPENDENCIES
   padrino (= 0.10.5)
   rack-test
   rake
+  rest-client
   shoulda (= 3.0.1)
   shoulda-context (= 1.0.0)
   shoulda-matchers (= 1.0.0)
