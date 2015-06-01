@@ -5,7 +5,7 @@ end
 
 def validates_presence_of(*args)
   if args[-1].instance_of? Hash
-    map = args[-1][:in] || args[-1] || @input
+    map = args[-1][:in] || @input
     key_list = args[0..-2]
   else
     map, key_list = @input, args

@@ -9,15 +9,6 @@ def get_create_address_params
   validates_presence_of :name, :line1, :line2, :city, :state, :pincode , :phone_number
 end
 
-def create_address(address_params, user_id)
-  address_params[:user_id] = get_valid_user_id user_id
-  address_params[:is_primary] = is_primary_address address_params
-  address = Address.transaction do
-    Address.create!(address_params)
-  end
-  return address
-end
-
 def get_update_address_params
   @input = parse_request
   validates_presence_of :address_id, :address
@@ -52,33 +43,19 @@ def update_user_params
 end
 
 def is_primary_address(address_params)
-  if !address_params.has_key?("is_primary") then
+  if !address_params.has_key?("is_primary")
       return false
   end
-  return true
+  return address_params[:is_primary]
 end
 
-def update_address (user_id)
-  existing_address = Address.where('user_id' => user_id, 'id' => @input[:address_id]).as_json;
-  if !existing_address.empty? then
-    validates_presence_of :name, :line1, :line2, :city, :state, :pincode , :phone_number, @input[:address]
-    Address.transaction do
-      old_address = Address.find(@input[:address_id])
-      old_address.update_attributes(@input[:addresses])
-    end
-  else
-    raise StandardError.new("There is no address associated with address_id: #{@input[:address_id]} and user_id : #{user_id}")
-  end
-end
-
-def get_valid_user_id (user_id)
+def valid_user_id (user_id)
   User.find(user_id);
-  return user_id
 end
 
 def create_if_address_not_empty (user_id)
-  if !@input[:address].nil?
-    validates_presence_of :name, :line1, :line2, :city, :state, :pincode , :phone_number, @input[:address]
-    create_address @input[:address], user_id
+  if @input[:address]
+    validates_presence_of :name, :line1, :line2, :city, :state, :pincode , :phone_number, {:in => @input[:address]}
+    Address.create_address @input[:address], user_id
   end
 end

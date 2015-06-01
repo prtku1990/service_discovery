@@ -19,6 +19,7 @@ gem 'activerecord', '3.1.3', :require => 'active_record'
 gem 'actionpack', '3.1.3'
 gem 'activesupport'
 gem 'mysql2'
+gem 'googlevoiceapi'
 
 # Test requirements
 group :test do
