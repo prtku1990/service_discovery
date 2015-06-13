@@ -30,6 +30,11 @@ ServiceDiscovery::App.controllers :users do
     {addresses: addresses}.to_json
   end
 
+  put '/:user_id/profile' do
+    @input = parse_request
+    User.find(params[:user_id]).update_attributes(name: @input[:name], phone_number: @input[:phone_number])
+  end
+
   post '/' do
     get_create_user_params
     db_user = User.where(email_id: @input[:email_id])
