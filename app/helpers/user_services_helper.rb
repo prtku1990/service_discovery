@@ -6,6 +6,7 @@
 
 def get_create_address_params
   @input = parse_request
+  @input = @input[:address]
   puts "\n\ninput is #{@input.inspect}\n"
   validates_presence_of :name, :line1, :pincode , :phone_number
 end
