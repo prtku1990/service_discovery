@@ -18,11 +18,11 @@ gem 'slim'
 gem 'activerecord', '3.1.3', :require => 'active_record'
 gem 'actionpack', '3.1.3'
 gem 'activesupport'
-gem 'mysql2'
 gem 'googlevoiceapi'
 
 # Test requirements
 group :test do
+  gem 'mysql2'
   gem 'simplecov'
   gem 'test-unit', '2.5.5'
   gem "spork"
@@ -33,6 +33,14 @@ group :test do
   gem "shoulda-context", '1.0.0'
   gem "shoulda-matchers", '1.0.0'
   gem 'rack-test', :require => 'rack/test'
+end
+
+group :development do
+  gem 'mysql2'
+end
+
+group :production do
+  gem 'sqlite3', '1.3.4'
 end
 
 # Padrino Stable Gem
