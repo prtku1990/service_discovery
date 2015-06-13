@@ -26,4 +26,17 @@ class ServiceTest < ActiveSupport::TestCase
       assert_equal [], service.get_slots('2015-04-04')
     end
   end
+
+  context "Get all services" do
+    should "return all services" do
+      service1_details = {name: 's1', image: 's1i.jpg', price_per_hour: "1.0"}
+      service2_details = {name: 's1', image: 's1i.jpg', price_per_hour: "1.0"}
+      service1 = FactoryGirl.create(:service, service1_details)
+      service2 = FactoryGirl.create(:service, service2_details)
+      get '/services'
+      expected_response = [service1_details.merge(service_id: service1.id),
+                           service2_details.merge(service_id: service2.id)]
+      assert_equal expected_response, JSON.parse(last_response.body, symbolize_names: true)
+    end
+  end
 end

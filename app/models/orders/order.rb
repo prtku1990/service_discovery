@@ -22,7 +22,7 @@ class Order < ActiveRecord::Base
     end
 
     event :close do
-      transition [:completed] => :cancelled
+      transition [:completed] => :closed
     end
 
     event :cancel do
@@ -50,6 +50,11 @@ class Order < ActiveRecord::Base
   def fields_for_find_orders
     {order_id: id, slot_start_time: slot_start_time,
      status: status, service_name: service.name}
+  end
+
+  def set_end_time_and_price(end_time)
+    update_attributes!(actual_end_time: end_time)
+    Pricer.new(self).calculate_price
   end
 
   def fields_for_get_order

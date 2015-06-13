@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.decimal  "price_per_hour", :precision => 12, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "image"
   end
 
   create_table "users", :force => true do |t|

@@ -11,7 +11,7 @@ ServiceDiscovery::App.controllers :orders do
   end
 
   get '/' do
-    Order.find_orders(params[:user_id]).to_json
+    {orders: Order.find_orders(params[:user_id])}.to_json
   end
 
   get '/:id' do
@@ -36,8 +36,16 @@ ServiceDiscovery::App.controllers :orders do
     @input = parse_request
     order = Order.find(params[:id])
     Order.transaction do
-      order.update_attributes!(actual_end_time: @input[:end_time])
+      order.set_end_time_and_price(@input[:end_time])
       order.complete!
+    end
+  end
+
+  put '/:id/close' do
+    @input = parse_request
+    order = Order.find(params[:id])
+    Order.transaction do
+      order.close!
     end
   end
 

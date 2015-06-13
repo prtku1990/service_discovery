@@ -1,5 +1,5 @@
 ServiceDiscovery::App.controllers :users do
-  
+
   post '/:user_id/address' do
     get_create_address_params
     address = Address.create_address @input, params[:user_id]
