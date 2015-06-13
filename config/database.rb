@@ -32,10 +32,9 @@ ActiveRecord::Base.configurations[:production] = {
   :reconnect => true,
   :database  => 'service_dis_9160',
   :pool      => 5,
-  :username  => 'santhoshtangudu',
-  :password  => '9fVWkoy9TKIJsdkdK2q3',
+  :username  => 'service_dis_9160',
+  :password  => 'ArAc9mnLivZgxg13_m_T',
   :host      => "service-dis-9160.mysql.dbs.appsdeck.eu",
-  :port      => 30423,
   :socket    => '/tmp/mysql.sock'
 
 }
