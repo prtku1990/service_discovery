@@ -6,7 +6,8 @@
 
 def get_create_address_params
   @input = parse_request
-  validates_presence_of :name, :line1, :line2, :city, :state, :pincode , :phone_number
+  puts "\n\ninput is #{@input.inspect}\n"
+  validates_presence_of :name, :line1, :pincode , :phone_number
 end
 
 def get_update_address_params
