@@ -37,18 +37,14 @@ ServiceDiscovery::App.controllers :users do
 
   post '/' do
     get_create_user_params
-    db_user = User.where(email_id: @input[:email_id])
-    if db_user.first.nil?
-      update_user_params
-      ActiveRecord::Base.transaction do
-        @user = User.create!(@user_params)
-        create_if_address_not_empty @user[:id]
-      end
-      status 201
-      {user_id: @user[:id], new_user: true}.to_json
-    else
+    db_user = User.where(email_id: @input[:email_id]).first
+    if db_user
       status 302
-      {user_id: db_user.first[:id], new_user: false}.to_json
+      {user_id: db_user.id, new_user: false}.to_json
+    else
+      user = User.create_user(@input)
+      status 201
+      {user_id: user.id, new_user: true}.to_json
     end
   end
 end

@@ -7,7 +7,7 @@ class UserControllerTest < ActiveSupport::TestCase
   context 'AddAddress' do
     should 'Return error if name is not present in request' do
       user = FactoryGirl.create(:user)
-      payload = {line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'}
+      payload = {address: {line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'}}
       assert_raise StandardError.new('Parameter name is mandatory') do
         post "/users/#{user.id}/address", payload.to_json
       end
@@ -15,39 +15,15 @@ class UserControllerTest < ActiveSupport::TestCase
 
     should 'Return error if line1 is not present in request' do
       user = FactoryGirl.create(:user)
-      payload = {name: 'santhosh', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'}
+      payload = {address: {name: 'santhosh', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'}}
       assert_raise StandardError.new('Parameter line1 is mandatory') do
-        post "/users/#{user.id}/address", payload.to_json
-      end
-    end
-
-    should 'Return error if line2 is not present in request' do
-      user = FactoryGirl.create(:user)
-      payload = {name: 'santhosh', line1: 'first line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'}
-      assert_raise StandardError.new('Parameter line2 is mandatory') do
-        post "/users/#{user.id}/address", payload.to_json
-      end
-    end
-
-    should 'Return error if city is not present in request' do
-      user = FactoryGirl.create(:user)
-      payload = {name: 'santhosh', line1: 'first line', line2: 'second line', state: 'KA', pincode: '532421', phone_number: '9538255159'}
-      assert_raise StandardError.new('Parameter city is mandatory') do
-        post "/users/#{user.id}/address", payload.to_json
-      end
-    end
-
-    should 'Return error if state is not present in request' do
-      user = FactoryGirl.create(:user)
-      payload = {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore',  pincode: '532421', phone_number: '9538255159'}
-      assert_raise StandardError.new('Parameter state is mandatory') do
         post "/users/#{user.id}/address", payload.to_json
       end
     end
 
     should 'Return error if pincode is not present in request' do
       user = FactoryGirl.create(:user)
-      payload = {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA',  phone_number: '9538255159'}
+      payload = {address: {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA',  phone_number: '9538255159'}}
       assert_raise StandardError.new('Parameter pincode is mandatory') do
         post "/users/#{user.id}/address", payload.to_json
       end
@@ -56,7 +32,7 @@ class UserControllerTest < ActiveSupport::TestCase
 
     should 'Return error if phone_number is not present in request' do
       user = FactoryGirl.create(:user)
-      payload = {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421'}
+      payload = {address: {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421'}}
       assert_raise StandardError.new('Parameter phone_number is mandatory') do
         post "/users/#{user.id}/address", payload.to_json
       end
@@ -64,12 +40,15 @@ class UserControllerTest < ActiveSupport::TestCase
 
     should 'Create address' do
       user = FactoryGirl.create(:user)
-      payload = {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'}
+      payload = {address:
+                     {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore',
+                      state: 'KA', pincode: '532421', phone_number: '9538255159'}
+      }
       post "/users/#{user.id}/address", payload.to_json
       assert_equal 1, Address.count
       address = Address.first
       assert_equal address[:user_id], user.id
-      assert_address_fields address, payload
+      assert_address_fields address, payload[:address]
     end
 
     def assert_address_fields(address, payload)
