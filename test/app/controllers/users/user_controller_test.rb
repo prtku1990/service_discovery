@@ -76,7 +76,7 @@ class UserControllerTest < ActiveSupport::TestCase
   context 'update address' do
     should 'Return error if address_id does not present' do
       user = FactoryGirl.create(:user)
-      payload = {address: { line1: "186, some building", line2: "someother road", land_mark: "near that",
+      payload = {address: { line1: "186, some building", line2: "someother road", landmark: "near that",
           city: "moholla", state: "rajya", pincode: "1299468", name: "naam", phone_number: "9898989898"}}
       assert_raise StandardError.new('Parameter address_id is mandatory') do
         put "/users/#{user.id}/update_address", payload.to_json
@@ -96,7 +96,7 @@ class UserControllerTest < ActiveSupport::TestCase
     #   expected_addresses = [{name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'},
     #                         {name: 'tvs', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255160'}]
     #   existing_address = {name: 'santhosh', line1: 'first line', line2: 'second line', city: 'blore', state: 'KA', pincode: '532421', phone_number: '9538255159'}
-    #   payload = { address_id: 1, address: { line1: "186, some building", line2: "someother road", land_mark: "near that",
+    #   payload = { address_id: 1, address: { line1: "186, some building", line2: "someother road", landmark: "near that",
     #                                         city: "moholla", state: "rajya", pincode: "1299468", name: "naam", phone_number: "9898989898"}}
     #   Address.expects(:where).returns(existing_address)
     #   Address.expects(:find).returns(existing_address)

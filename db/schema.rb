@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 16) do
+ActiveRecord::Schema.define(:version => 17) do
 
   create_table "addresses", :force => true do |t|
     t.string   "name"
@@ -20,13 +20,15 @@ ActiveRecord::Schema.define(:version => 16) do
     t.string   "city"
     t.string   "state"
     t.string   "pincode"
-    t.string   "land_mark"
+    t.text     "landmark"
     t.string   "phone_number"
     t.integer  "is_primary",   :limit => 1
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.boolean  "active",                    :default => true
+    t.string   "country"
+    t.string   "area"
   end
 
   create_table "order_logs", :force => true do |t|
