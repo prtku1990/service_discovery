@@ -18,6 +18,7 @@ gem 'slim'
 gem 'activerecord', '3.1.3', :require => 'active_record'
 gem 'actionpack', '3.1.3'
 gem 'activesupport'
+gem 'googlevoiceapi'
 gem 'mysql2'
 
 # Test requirements

@@ -7,6 +7,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.string :pincode
+      t.string :land_mark
       t.string :phone_number
       t.integer :is_primary, :limit=>1
       t.timestamps
