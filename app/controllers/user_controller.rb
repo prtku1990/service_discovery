@@ -45,11 +45,11 @@ ServiceDiscovery::App.controllers :users do
     db_user = User.where(email_id: @input[:email_id]).first
     if db_user
       status 302
-      {user_id: db_user.id, new_user: false}.to_json
+      {user_id: db_user.id, new_user: false, user_details: {user_name: db_user.name, phone_number: db_user.phone_number}}.to_json
     else
       user = User.create_user(@input)
       status 201
-      {user_id: user.id, new_user: true}.to_json
+      {user_id: user.id, new_user: true, user_details: {}}.to_json
     end
   end
 end

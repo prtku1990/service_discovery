@@ -138,7 +138,7 @@ class UserControllerTest < ActiveSupport::TestCase
       db_users = [user]
       User.expects(:where).returns(db_users)
       post "/users/", payload.to_json
-      result = {user_id: user.id, new_user: false}.to_json
+      result = {user_id: user.id, new_user: false, user_details: {user_name:nil, phone_number:nil}}.to_json
       assert_equal result, last_response.body
       assert_equal last_response.status, 302
     end
